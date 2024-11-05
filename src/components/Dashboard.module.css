@@ -1,0 +1,62 @@
+.outerwrapper {
+    width: 100%;
+    position: relative;
+    display: grid;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+}
+
+.button {
+    margin-top: 1rem;
+    border: 1px solid rgba(8, 8, 49, .8);
+    border-radius: 4px;
+    background-color: #FFFF;
+    padding: .28rem 0 .28rem 0;
+}
+
+.button:hover {
+    color: #FFFFFF;
+    background-color: rgb(8, 8, 49);
+}
+
+.shipmenttable {
+    width: 100%;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.shipmenttable th {
+    border: 1px solid;
+    border-color: rgb(8, 8, 49);
+    background-color: rgb(8, 8, 49);
+    color: #FFFFFF;
+}
+
+.shipmenttable td {
+    min-width: fit-content;
+    padding: .4rem .4rem;
+    border: 1px solid;
+    border-color: rgba(8, 8, 49, .2)
+}
+.message {
+    justify-self: center;
+    text-align: center;
+    margin: 0;
+    align-self: center;
+    margin-top: 5rem;
+}
+
+.btnabsolute {
+    float: right;
+    justify-items: flex-end;
+    align-self: flex-end;
+    justify-self: flex-end;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+}

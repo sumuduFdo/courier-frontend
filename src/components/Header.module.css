@@ -1,0 +1,45 @@
+.header {
+  /* padding: 2rem 10%; */
+  border-bottom: 1px solid rgb(8, 8, 49);
+  background-color:rgb(255, 255, 255);
+  display: flex;
+  padding: 1rem 4rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.25rem;
+  line-height: 1;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  color:rgb(21, 17, 80);
+}
+
+.buttonwrapper {
+  width: fit-content;
+  padding: 0;
+  height: fit-content;
+}
+.leftbtn{
+  margin-right: .5rem;
+}
+.button {
+  background-color: white;
+  border: 1px solid rgb(21, 17, 80);
+  color: rgb(21, 17, 80);
+  border-radius: 4px;
+  font-size: 1.05rem;
+  padding: .35rem 1rem;
+  text-align: center;
+  font-weight: 450;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color:  rgb(21, 17, 80);
+  color: white;
+}

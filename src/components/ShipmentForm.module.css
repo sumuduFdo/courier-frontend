@@ -1,0 +1,27 @@
+.backdrop {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow: auto;
+    justify-items: center;
+    align-items: center;
+    display: grid;
+}
+
+.shipmentform {
+    display: block;
+    position: relative;
+    width: fit-content;
+    background-color: white;
+    border-radius: 4px;
+    margin-top: 5rem;
+    z-index: 20;
+    margin-bottom: 2rem;
+}

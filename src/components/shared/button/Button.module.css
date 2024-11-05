@@ -1,0 +1,11 @@
+.btn {
+    border: 1px solid rgba(8, 8, 49, .8);
+    border-radius: 4px;
+    background-color: #FFFF;
+    padding: .4rem 1rem;
+}
+
+.btn:hover {
+    color: #FFFFFF;
+    background-color: rgb(8, 8, 49);
+}
