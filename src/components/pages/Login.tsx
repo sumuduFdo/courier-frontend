@@ -3,13 +3,11 @@ import { ActionFunction } from "react-router-dom";
 import LoginForm from "../LoginForm";
 
 export function LoginPage() {
-  const [userLoggedIn, setUserLoggedIn] = useOutletContext();
-  
+
   return <LoginForm />;
 }
 
 export const actions: ActionFunction = async ({ request, params }) => {
-
 
   console.log("executing actions");
   const data = await request.formData();
