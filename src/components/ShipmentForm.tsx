@@ -1,11 +1,12 @@
 import forms from "./shared/FormStyles.module.css";
 import classes from "./ShipmentForm.module.css";
 
-function ShipmentForm(props: { cancelForm: any }) {
+function ShipmentForm(props: { cancelForm: any, addShipment: any }) {
   async function submitForm(event: any) {
+    console.log('cancelForm: ', typeof(props.cancelForm));
+    console.log('formsubmt: ', typeof(event));
     event.preventDefault();
     const formElement = event.target.elements;
-    console.log("form element: ", formElement);
     let authToken = "";
     const token = localStorage.getItem("authToken");
     if (token) {
@@ -42,6 +43,8 @@ function ShipmentForm(props: { cancelForm: any }) {
     }
 
     const resData = await res.json();
+    console.log(resData)
+    // props.addShipment(resData);
     props.cancelForm();
   }
 

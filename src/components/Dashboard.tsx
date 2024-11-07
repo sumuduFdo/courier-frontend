@@ -2,8 +2,19 @@ import React, { useState } from "react";
 import classes from "./Dashboard.module.css";
 import ShipmentForm from "./ShipmentForm";
 
+interface Shipment {
+  id: string;
+  recipientName: string;
+  recipientAddress: string;
+  weight: number;
+  shipmentType: string;
+  deliveryType: string;
+  trackingNumber: string;
+  shipmentStatus: string;
+}
+
 function Dashboard() {
-  const [shipmentData, setShipmentData] = useState([]);
+  const [shipmentData, setShipmentData] = useState<Shipment[]>([]);
   const [fetchError, setFetchError] = useState({ status: false, message: "" });
   const [dataLength, setDataLength] = useState(0);
   const [displayAddForm, setDisplayAddForm] = useState(false);
@@ -14,7 +25,7 @@ function Dashboard() {
 
   React.useEffect(() => {
     fetchShipmentHandler();
-  }, [setDisplayAddForm, hideForm]);
+  }, []);
 
   const fetchShipmentHandler = async () => {
     console.log("fetching data");
@@ -40,12 +51,9 @@ function Dashboard() {
         return res.json();
       })
       .then((data) => {
-        console.log("data:", data);
         if (data.error !== null) {
-          console.log("error not null");
           throw new Error(data.error.message);
         } else {
-          console.log("setting shipment");
           setShipmentData(data.data);
           setDataLength(data.data.length);
         }
@@ -65,9 +73,15 @@ function Dashboard() {
     setDisplayAddForm(false);
   }
 
+  function appendNewShipment(shipment: Shipment) {
+    const data = shipmentData.slice();
+    data.push(shipment);
+    setShipmentData(data);
+  }
+
   return (
     <>
-      {displayAddForm && <ShipmentForm cancelForm={hideForm} />}
+      {displayAddForm && <ShipmentForm cancelForm={hideForm} addShipment={appendNewShipment} />}
       {dataLength > 0 && (
         <div className={classes.outerwrapper} style={{ marginTop: "2rem" }}>
           <div className={classes.row}>
@@ -96,19 +110,30 @@ function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {shipmentData.map((shipment: any) => {
-                  return (
-                    <tr>
-                      <td>{shipment.recipientName}</td>
-                      <td>{shipment.recipientAddress}</td>
-                      <td>{shipment.weight}</td>
-                      <td>{shipment.shipmentType}</td>
-                      <td>{shipment.deliveryType}</td>
-                      <td>{shipment.trackingNumber}</td>
-                      <td>{shipment.shipmentStatus}</td>
-                    </tr>
-                  );
-                })}
+                {shipmentData.map(
+                  (shipment: {
+                    id: string;
+                    recipientName: string;
+                    recipientAddress: string;
+                    weight: number;
+                    shipmentType: string;
+                    deliveryType: string;
+                    trackingNumber: string;
+                    shipmentStatus: string;
+                  }) => {
+                    return (
+                      <tr>
+                        <td>{shipment.recipientName}</td>
+                        <td>{shipment.recipientAddress}</td>
+                        <td>{shipment.weight}</td>
+                        <td>{shipment.shipmentType}</td>
+                        <td>{shipment.deliveryType}</td>
+                        <td>{shipment.trackingNumber}</td>
+                        <td>{shipment.shipmentStatus}</td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
           </div>

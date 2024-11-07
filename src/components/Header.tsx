@@ -1,6 +1,5 @@
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import classes from "./Header.module.css";
-import { useState } from "react";
 
 function Header(props: { loggedIn: boolean }) {
 
