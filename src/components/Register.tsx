@@ -1,13 +1,12 @@
 import { Form } from "react-router-dom";
 import forms from "./shared/FormStyles.module.css";
 
-function RegisterForm() {
+const Register = () => {
   return (
     <Form className={forms.form} method="POST">
-        <div className={forms.formwrapper}>
-      <h4 className={forms.formheading}>Register</h4>
+      <div className={forms.formwrapper}>
+        <h4 className={forms.formheading}>Register</h4>
 
-      <section>
         <div className={forms.formgroupsection}>
           <div className={forms.formgroup}>
             <label htmlFor="firstName">First Name</label>
@@ -17,40 +16,29 @@ function RegisterForm() {
             <label htmlFor="lastName">Last Name</label>
             <input type="text" name="lastName" id="lastName" required />
           </div>
+        </div>
+        <div className={forms.formgroupsection}>
           <div className={forms.formgroup}>
             <label htmlFor="dateOfBirth">Date of Birth</label>
             <input type="date" name="dateOfBirth" id="dateOfBirth" required />
           </div>
+
+          <div className={forms.formgroup}>
+            <label htmlFor="phone">Mobile Number</label>
+            <input type="tel" name="phone" id="phone" required />
+          </div>
         </div>
+
         <div className={forms.formgroupsection}>
           <div className={forms.formgroup}>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" required />
           </div>
           <div className={forms.formgroup}>
-            <label htmlFor="phone">Mobile Number</label>
-            <input type="tel" name="phone" id="phone" required />
+            <label htmlFor="confimEmail">Confirm Email</label>
+            <input type="email" name="confimEmail" id="confimEmail" required />
           </div>
         </div>
-        <div className={forms.formgroupsection}>
-          <div className={forms.formgroup}>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" required />
-          </div>
-
-          <div className={forms.formgroup}>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              required
-            />
-          </div>
-        </div>
-      </section>
-
-      <section>
         <div className={forms.formgroupsection}>
           <div style={{ width: "20%" }} className={forms.formgroup}>
             <label htmlFor="houseNumber">House No.</label>
@@ -82,21 +70,34 @@ function RegisterForm() {
             <input type="text" name="zipcode" id="zipcode" required />
           </div>
         </div>
-      </section>
+        <div className={forms.formgroupsection}>
+          <div className={forms.formgroup}>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password" required />
+          </div>
 
-      <div className={forms.formgroup}>
-        <button
-          type="submit"
-          className={`${forms.submitbtn} ${forms.registerbtn}`}
-        >
-          Register
-        </button>
+          <div className={forms.formgroup}>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              required
+            />
+          </div>
+        </div>
+
+        <div className={forms.formgroup} style={{'marginTop': '1.5rem'}}>
+          <button
+            type="submit"
+            className={`${forms.submitbtn} ${forms.registerbtn}`}
+          >
+            Register
+          </button>
+        </div>
       </div>
-    </div>
     </Form>
-    
   );
-}
+};
 
-export default RegisterForm;
-
+export default Register;

@@ -1,10 +1,13 @@
 import forms from "./shared/FormStyles.module.css";
-import { Form } from "react-router-dom";
+import { Form, useOutletContext } from "react-router-dom";
 
-function LoginForm() {
+const Login = (props: {onLogin: Function}) => {
+
+  const setIsLoggedIn = useOutletContext();
+
   return (
     <>
-      <Form method="POST" className={forms.form}>
+      <Form method="POST" className={forms.form} style={{'marginTop': '10vh'}}>
         <div className={forms.formwrapper}>
           <h4 className={forms.formheading}>Login</h4>
           <div className={forms.formgroup}>
@@ -26,4 +29,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default Login;

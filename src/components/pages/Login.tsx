@@ -1,14 +1,15 @@
 import { json, redirect, useOutletContext } from "react-router-dom";
 import { ActionFunction } from "react-router-dom";
-import LoginForm from "../LoginForm";
 
-export function LoginPage() {
+import Login from "../Login";
 
-  return <LoginForm />;
-}
+export const LoginPage = () => {
+  const setIsLoggedIn: Function = useOutletContext();
 
-export const actions: ActionFunction = async ({ request, params }) => {
+  return <Login onLogin={setIsLoggedIn}/>;
+};
 
+export const loginActions: ActionFunction = async ({ request, params }) => {
   console.log("executing actions");
   const data = await request.formData();
 
@@ -25,11 +26,10 @@ export const actions: ActionFunction = async ({ request, params }) => {
   if (!res.ok) {
     throw json({ message: "User authentication failure." }, { status: 500 });
   }
-  
+
   const resData = await res.json();
   localStorage.setItem("userId", resData.data.userId);
   localStorage.setItem("authToken", resData.data.token);
-  
 
   return redirect("/dashboard");
 };

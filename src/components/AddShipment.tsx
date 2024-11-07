@@ -1,7 +1,7 @@
 import forms from "./shared/FormStyles.module.css";
-import classes from "./ShipmentForm.module.css";
+import classes from "./AddShipment.module.css";
 
-function ShipmentForm(props: { cancelForm: any, addShipment: any }) {
+const AddShipment = (props: { cancelForm: any, addShipment: any }) => {
   async function submitForm(event: any) {
     console.log('cancelForm: ', typeof(props.cancelForm));
     console.log('formsubmt: ', typeof(event));
@@ -156,4 +156,4 @@ function ShipmentForm(props: { cancelForm: any, addShipment: any }) {
   );
 }
 
-export default ShipmentForm;
+export default AddShipment;
