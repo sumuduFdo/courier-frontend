@@ -1,11 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
 
-function Header(props: { loggedIn: boolean }) {
+const Header = (props: { isloggedIn: boolean, onLogout: Function, }) => {
 
-  function logUserOut() {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('authToken');
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    props.onLogout();
+    navigate('/login')
   }
 
   return (
@@ -15,35 +17,19 @@ function Header(props: { loggedIn: boolean }) {
         <br /> Manager
       </span>
 
-      {props.loggedIn && <button className={classes.button}><NavLink
-              to="/login"
-              onClick={() => {logUserOut()}}
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Logout
-            </NavLink></button>}
+      {props.isloggedIn && (
+        <button className={classes.button} onClick={logoutHandler}>
+            Logout
+        </button>
+      )}
 
-      {!props.loggedIn && (
+      {!props.isloggedIn && (
         <div className={classes.buttonwrapper}>
-          <button className={classes.button} style={{'marginRight': '1rem'}}>
-            <NavLink
-              to="/login"
-              className={({ isActive }) => isActive ? classes.active : undefined}
-            >
-              Login
-            </NavLink>
+          <button className={classes.button} style={{ marginRight: "1rem" }} onClick={() => { navigate('/login')}}>
+            Login
           </button>
-          <button className={classes.button}>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Register
-            </NavLink>
+          <button className={classes.button}  onClick={() => { navigate('/register')}}>
+            Register
           </button>
         </div>
       )}

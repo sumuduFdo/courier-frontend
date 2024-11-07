@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import classes from "./Dashboard.module.css";
-import ShipmentForm from "./ShipmentForm";
+import AddShipment from "./AddShipment";
+
+import { useOutletContext, useNavigate} from "react-router-dom";
 
 interface Shipment {
   id: string;
@@ -13,19 +15,38 @@ interface Shipment {
   shipmentStatus: string;
 }
 
-function Dashboard() {
+const Dashboard = () => {
   const [shipmentData, setShipmentData] = useState<Shipment[]>([]);
   const [fetchError, setFetchError] = useState({ status: false, message: "" });
   const [dataLength, setDataLength] = useState(0);
   const [displayAddForm, setDisplayAddForm] = useState(false);
 
+  const setIsLoggedIn: any = useOutletContext()
+  const navigate = useNavigate()
+
   React.useEffect(() => {
+    validateUserLogin();
     fetchShipmentHandler();
   }, []);
 
-  React.useEffect(() => {
-    fetchShipmentHandler();
-  }, []);
+  const getAuthToken = () => {
+    let authToken = "";
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      authToken = token;
+    }
+
+    return authToken;
+  };
+
+  const validateUserLogin = () => {
+    const token = getAuthToken();
+    if (token !== "") {
+      setIsLoggedIn(true);
+    } else {
+      navigate('/login');
+    }
+  };
 
   const fetchShipmentHandler = async () => {
     console.log("fetching data");
@@ -67,8 +88,6 @@ function Dashboard() {
       });
   };
 
-  // const getAdminStatus() {}
-
   function hideForm() {
     setDisplayAddForm(false);
   }
@@ -81,7 +100,9 @@ function Dashboard() {
 
   return (
     <>
-      {displayAddForm && <ShipmentForm cancelForm={hideForm} addShipment={appendNewShipment} />}
+      {displayAddForm && (
+        <AddShipment cancelForm={hideForm} addShipment={appendNewShipment} />
+      )}
       {dataLength > 0 && (
         <div className={classes.outerwrapper} style={{ marginTop: "2rem" }}>
           <div className={classes.row}>
@@ -165,10 +186,7 @@ function Dashboard() {
         </div>
       )}
     </>
-    // <>
-    //   <ShipmentForm />
-    // </>
   );
-}
+};
 
 export default Dashboard;

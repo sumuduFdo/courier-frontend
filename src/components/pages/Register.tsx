@@ -1,8 +1,8 @@
-import RegisterForm from "../RegisterForm";
 import { ActionFunction, json, redirect } from "react-router-dom";
+import Register from "../Register";
 
 export function RegisterPage() {
-  return <RegisterForm />;
+  return <Register />;
 }
 
 export const actions: ActionFunction = async ({ request }) => {
