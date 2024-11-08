@@ -10,77 +10,33 @@ export const Dashboard = () => {
   const [adminStatus, setAdminStatus] = useState(false);
   const navigate = useNavigate();
 
-  const loaderData = useLoaderData() as {error: boolean, data?: any, message?: string} | null;
+  const loaderData = useLoaderData() as {
+    error: boolean;
+    data?: any;
+    message?: string;
+  } | null;
 
   useEffect(() => {
-    fetchShipmentHandler();
     updateAdminStatus();
-    console.log('loader data: ', loaderData);
-    console.log('data: ', loaderData?.data);
-    if(loaderData?.error !== false) {
-      setFetchError({status: true, message: loaderData?.message ? loaderData.message : ''})
+    if (loaderData?.error !== false) {
+      setFetchError({
+        status: true,
+        message: loaderData?.message ? loaderData.message : "",
+      });
     } else {
       setShipmentData(loaderData?.data);
     }
-  }, [loaderData]);
+  }, []);
 
   const updateAdminStatus = () => {
     const authData = localStorage.getItem("shipmentAuth");
-    console.log('authData: ', authData);
     if (authData) {
       setAdminStatus(JSON.parse(authData).isAdmin);
     }
   };
 
-  // const getAuthToken = () => {
-  //   let userId = "";
-  //   let authToken = "";
-  //   const authInfo = localStorage.getItem("shipmentAuth");
-  //   if (authInfo) {
-  //     const userAuthInfo = JSON.parse(authInfo);
-  //     userId = userAuthInfo.userId;
-  //     authToken = userAuthInfo.authToken;
-  //   }
-
-  //   return { userId: userId, token: authToken };
-  // };
-
-  // const fetchShipmentHandler = async () => {
-  //   console.log("fetching data");
-
-  //   const { userId, token } = getAuthToken();
-
-  //   const headers: Headers = new Headers();
-  //   headers.append("content-type", "appliation/json");
-  //   headers.append("authorization", `Bearer ${token}`);
-  //   headers.append("userId", userId);
-
-  //   fetch("http://localhost:4500/shipments", { headers: headers })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       if (data.error !== null) {
-  //         throw new Error(data.error.message);
-  //       } else {
-  //         setShipmentData(data.data);
-  //         setDataLength(data.data.length);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setFetchError({
-  //         status: true,
-  //         message: "Failed to fetch data. Please try again",
-  //       });
-  //     });
-  // };
-
   return (
     <>
-      {/* {displayAddForm && (
-        <AddShipment cancelForm={hideForm} addShipment={appendNewShipment} />
-      )} */}
       {shipmentData.length > 0 && (
         <div className={classes.outerwrapper} style={{ marginTop: "2rem" }}>
           <div className={classes.row}>
@@ -88,7 +44,7 @@ export const Dashboard = () => {
             <button
               className="btn-custom"
               onClick={() => {
-                navigate("create-shipment");
+                navigate("/shipments/create-shipment");
               }}
             >
               Add Shipment
@@ -111,16 +67,19 @@ export const Dashboard = () => {
               </thead>
               <tbody>
                 {shipmentData.map(
-                  (shipment: {
-                    id: string;
-                    recipientName: string;
-                    recipientAddress: string;
-                    weight: number;
-                    shipmentType: string;
-                    deliveryType: string;
-                    trackingNumber: string;
-                    shipmentStatus: string;
-                  }, id) => {
+                  (
+                    shipment: {
+                      id: string;
+                      recipientName: string;
+                      recipientAddress: string;
+                      weight: number;
+                      shipmentType: string;
+                      deliveryType: string;
+                      trackingNumber: string;
+                      shipmentStatus: string;
+                    },
+                    id
+                  ) => {
                     return (
                       <tr key={id}>
                         <td>{shipment.recipientName}</td>
@@ -134,7 +93,9 @@ export const Dashboard = () => {
                           <td className={classes.updateStatusTd}>
                             <button
                               className={`${classes.btnUpdate} btn-custom`}
-                              onClick={() => { navigate(`/shipments/${shipment.id}`)}}
+                              onClick={() => {
+                                navigate(`/shipments/${shipment.id}`);
+                              }}
                             >
                               Update
                             </button>
@@ -149,13 +110,14 @@ export const Dashboard = () => {
           </div>
         </div>
       )}
-      { fetchError.status === false && (
+
+      {fetchError.status === false || shipmentData.length === 0 &&(
         <>
           <div className={classes.row}>
             <button
               className={`btn-custom ${classes.btnabsolute}`}
               onClick={() => {
-                navigate("/create-shipment");
+                navigate("/shipments/create-shipment");
               }}
             >
               Add Shipment
@@ -177,7 +139,6 @@ export const Dashboard = () => {
 };
 
 export const fetchShipmentHandler = async () => {
-
   const getAuthToken = () => {
     let userId = "";
     let authToken = "";
@@ -191,7 +152,6 @@ export const fetchShipmentHandler = async () => {
     return { userId: userId, token: authToken };
   };
 
-  console.log("fetching data");
 
   const { userId, token } = getAuthToken();
   let returnData: any = null;
@@ -202,33 +162,20 @@ export const fetchShipmentHandler = async () => {
   headers.append("userId", userId);
 
   try {
-    const res = await fetch("http://localhost:4500/shipments", { headers: headers });
-    if(!res.ok) {
+    const res = await fetch("http://localhost:4500/shipments", {
+      headers: headers,
+    });
+    if (!res.ok) {
       throw new Error("Failed to fetch data from server.");
     }
     const data = await res.json();
-    returnData = {error: false, data: data.data};
+    returnData = { error: false, data: data.data };
   } catch (err: any) {
-    console.error(err); 
-    returnData = {error: true, message: err.message ? err.message : 'Failed to fetch data.'};
+    console.error(err);
+    returnData = {
+      error: true,
+      message: err.message ? err.message : "Failed to fetch data.",
+    };
   }
-
-  // fetch("http://localhost:4500/shipments", { headers: headers })
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     if (data.error !== null) {
-  //       throw new Error(data.error.message);
-  //     } else {
-  //       returnData = {data: data.data, error: null};
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     returnData = {error: true, data: null}
-  //   });
-
-    return returnData;
+  return returnData;
 };
-
