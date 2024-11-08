@@ -42,8 +42,8 @@ const ShipmentForm = (props: {
         props.setDisplayMessage(false);
         if(!props.messageData?.error === true) {
           navigate("/shipments");
-        } 
-      }, timer); 
+        }
+      }, timer);
     }
   }, [props, navigate]);
 
@@ -84,6 +84,8 @@ const ShipmentForm = (props: {
                     type="text"
                     name="recipientName"
                     id="recipientName"
+                    pattern="^[a-zA-Z._ ]*$"
+                    maxLength={200}
                     required
                   />
                 </div>
@@ -97,6 +99,8 @@ const ShipmentForm = (props: {
                         type="houseNumber"
                         name="houseNumber"
                         id="houseNumber"
+                        pattern="^[0-9A-Z/ ]*$"
+                        maxLength={10}
                         required
                       />
                     </div>
@@ -106,6 +110,8 @@ const ShipmentForm = (props: {
                         type="text"
                         name="streetAddress"
                         id="streetAddress"
+                        pattern="^[a-zA-Z0-9,. ]*$"
+                        maxLength={400}
                         required
                       />
                     </div>
@@ -113,12 +119,12 @@ const ShipmentForm = (props: {
                   <div className={forms.formgroupsection}>
                     <div className={forms.formgroup}>
                       <label htmlFor="city">City</label>
-                      <input type="text" name="city" id="city" required />
+                      <input type="text" name="city" pattern="^[A-Za-zÀ-ÿ\u00C0-\u00FF\s'-]+$" id="city" maxLength={100} required />
                     </div>
 
                     <div className={forms.formgroup}>
                       <label htmlFor="zipcode">Zipcode</label>
-                      <input type="text" name="zipcode" id="zipcode" required />
+                      <input type="text" name="zipcode" id="zipcode" pattern="^[0-9\s\-]{3,10}$" maxLength={20} required />
                     </div>
                   </div>
                 </section>
@@ -133,6 +139,7 @@ const ShipmentForm = (props: {
                     name="weight"
                     id="weight"
                     min={0.1}
+                    max={20.0}
                     required
                   />
                 </div>
@@ -182,65 +189,77 @@ const ShipmentForm = (props: {
           ) : (
             <table className={classes.detailstable}>
               <tbody>
-              <tr>
-                <td style={{ width: "30%" }}>Recipient Name</td>
-                <td className={classes.contenttd}>{shipment.recipientName}</td>
-              </tr>
-              <tr>
-                <td style={{ width: "30%" }}>Recipient Address</td>
-                <td className={classes.contenttd}>
-                  {shipment.recipientAddress}
-                </td>
-              </tr>
-              <tr>
-                <td style={{ width: "30%" }}>Parcel Weight</td>
-                <td className={classes.contenttd}>{shipment.weight} Kg</td>
-              </tr>
-              <tr>
-                <td style={{ width: "30%" }}>Parcel Type</td>
-                <td className={classes.contenttd}>{shipment.shipmentType}</td>
-              </tr>
-              <tr>
-                <td style={{ width: "30%" }}>Delivery Type</td>
-                <td className={classes.contenttd}>{shipment.deliveryType}</td>
-              </tr>
-              <tr>
-                <td style={{ width: "30%" }}>Tracking Number</td>
-                <td className={classes.contenttd}>{shipment.trackingNumber}</td>
-              </tr>
-              <tr>
-                <td style={{ width: "30%" }}>Current Status</td>
-                <td className={classes.contenttd}>
-                  <input type='text' name='shipmentId' value={shipment.id} onChange={() => {}} hidden />
-                  <select
-                    name="shipmentStatus"
-                    id="shipmentStatus"
-                    className="form-select"
-                    value={shipmentStatus}
-                    onChange={({ target }) => {
-                      setShipmentStatus(target.value);
-                    }}
-                    required
-                  >
-                    <option value="" disabled>
-                      Select Status
-                    </option>
-                    <option value="Order Created">Order Created</option>
-                    <option value="Picked Up">Picked Up</option>
-                    <option value="In Transit">In Transit</option>
-                    <option value="Out For Delivery">Out for Delivery</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Attempted Delivery">
-                      Attempted Delivery
-                    </option>
-                    <option value="Delivery Rescheduled">
-                      Delivery Rescheduled
-                    </option>
-                    <option value="Returned To Sender">Returned to Sender</option>
-                    <option value="Exception">Exception / Delayed</option>
-                  </select>
-                </td>
-              </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Recipient Name</td>
+                  <td className={classes.contenttd}>
+                    {shipment.recipientName}
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Recipient Address</td>
+                  <td className={classes.contenttd}>
+                    {shipment.recipientAddress}
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Parcel Weight</td>
+                  <td className={classes.contenttd}>{shipment.weight} Kg</td>
+                </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Parcel Type</td>
+                  <td className={classes.contenttd}>{shipment.shipmentType}</td>
+                </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Delivery Type</td>
+                  <td className={classes.contenttd}>{shipment.deliveryType}</td>
+                </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Tracking Number</td>
+                  <td className={classes.contenttd}>
+                    {shipment.trackingNumber}
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ width: "30%" }}>Current Status</td>
+                  <td className={classes.contenttd}>
+                    <input
+                      type="text"
+                      name="shipmentId"
+                      value={shipment.id}
+                      onChange={() => {}}
+                      hidden
+                    />
+                    <select
+                      name="shipmentStatus"
+                      id="shipmentStatus"
+                      className="form-select"
+                      value={shipmentStatus}
+                      onChange={({ target }) => {
+                        setShipmentStatus(target.value);
+                      }}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Status
+                      </option>
+                      <option value="Order Created">Order Created</option>
+                      <option value="Picked Up">Picked Up</option>
+                      <option value="In Transit">In Transit</option>
+                      <option value="Out For Delivery">Out for Delivery</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Attempted Delivery">
+                        Attempted Delivery
+                      </option>
+                      <option value="Delivery Rescheduled">
+                        Delivery Rescheduled
+                      </option>
+                      <option value="Returned To Sender">
+                        Returned to Sender
+                      </option>
+                      <option value="Exception">Exception / Delayed</option>
+                    </select>
+                  </td>
+                </tr>
               </tbody>
             </table>
           )}
