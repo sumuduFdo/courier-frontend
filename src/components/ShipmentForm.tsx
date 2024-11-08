@@ -5,8 +5,8 @@ import { useNavigate, useLoaderData, Form } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const ShipmentForm = (props: {
-  displayMessage: boolean,
-  setDisplayMessage: (state: boolean) => void,
+  displayMessage: boolean;
+  setDisplayMessage: (state: boolean) => void;
   messageData: { error: boolean; message: string } | null;
 }) => {
   const [shipment, setShipment] = useState<Shipment | null>(null);
@@ -35,12 +35,12 @@ const ShipmentForm = (props: {
     if (props.displayMessage === true) {
       console.log("props display message set to true");
       let timer = 3000;
-      if(props.messageData?.error === true) {
+      if (props.messageData?.error === true) {
         timer = 5000;
       }
       setTimeout(() => {
         props.setDisplayMessage(false);
-        if(!props.messageData?.error === true) {
+        if (!props.messageData?.error === true) {
           navigate("/shipments");
         }
       }, timer);
@@ -84,7 +84,7 @@ const ShipmentForm = (props: {
                     type="text"
                     name="recipientName"
                     id="recipientName"
-                    pattern="^[a-zA-Z._ ]*$"
+                    pattern="^[A-Za-z\s.]+$"
                     maxLength={200}
                     required
                   />
@@ -94,12 +94,11 @@ const ShipmentForm = (props: {
                   <div className={forms.formgroupsection}>
                     <div style={{ width: "25%" }} className={forms.formgroup}>
                       <label htmlFor="houseNumber">House No.</label>
-
                       <input
                         type="houseNumber"
                         name="houseNumber"
                         id="houseNumber"
-                        pattern="^[0-9A-Z/ ]*$"
+                        pattern="^[0-9A-Z/]+$"
                         maxLength={10}
                         required
                       />
@@ -110,7 +109,7 @@ const ShipmentForm = (props: {
                         type="text"
                         name="streetAddress"
                         id="streetAddress"
-                        pattern="^[a-zA-Z0-9,. ]*$"
+                        pattern="^[A-Za-z\s,.]+$"
                         maxLength={400}
                         required
                       />
@@ -119,12 +118,26 @@ const ShipmentForm = (props: {
                   <div className={forms.formgroupsection}>
                     <div className={forms.formgroup}>
                       <label htmlFor="city">City</label>
-                      <input type="text" name="city" pattern="^[A-Za-zÀ-ÿ\u00C0-\u00FF\s'-]+$" id="city" maxLength={100} required />
+                      <input
+                        type="text"
+                        name="city"
+                        pattern="^[A-Za-zÀ-ÿ\u00C0-\u00FF\s'-]+$"
+                        id="city"
+                        maxLength={100}
+                        required
+                      />
                     </div>
 
                     <div className={forms.formgroup}>
                       <label htmlFor="zipcode">Zipcode</label>
-                      <input type="text" name="zipcode" id="zipcode" pattern="^[0-9\s\-]{3,10}$" maxLength={20} required />
+                      <input
+                        type="text"
+                        name="zipcode"
+                        id="zipcode"
+                        pattern="^[0-9\s\-]{3,10}$"
+                        maxLength={20}
+                        required
+                      />
                     </div>
                   </div>
                 </section>
@@ -272,6 +285,7 @@ const ShipmentForm = (props: {
             </div>
             <div className={forms.formgroup}>
               <button
+                type="reset"
                 className={`btn-custom`}
                 onClick={() => {
                   navigate("/shipments");

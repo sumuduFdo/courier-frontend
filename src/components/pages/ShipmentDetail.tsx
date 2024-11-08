@@ -1,4 +1,4 @@
-import { ActionFunction, useActionData, useLoaderData } from "react-router-dom";
+import { ActionFunction, LoaderFunction, useActionData, useLoaderData } from "react-router-dom";
 import ShipmentForm from "../ShipmentForm";
 import { useState, useEffect } from "react";
 
@@ -43,9 +43,9 @@ export const ShipmentDetail = () => {
   );
 };
 
-export const loader = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   let shipmentData: { error: boolean; message?: string; data?: any };
-  const shipmentId: string = params.shipmentId;
+  const shipmentId: string | undefined = params.shipmentId;
 
   let userId = "";
   let token = "";
