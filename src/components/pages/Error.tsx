@@ -1,17 +1,10 @@
-import { useRouteError, useOutletContext } from 'react-router-dom';
+import { useInRouterContext, useOutlet, useOutletContext, useRouteError } from 'react-router-dom';
 import Header from '../Header';
-
 import ErrorInfo from '../ErrorInfo';
 
 const ErrorPage = () => {
   const error: any = useRouteError();
-  // const [isLoggedIn, setIsLoggedIn] = useOutletContext();
-
-  // const onLogout = () => {
-  //   localStorage.removeItem('userId');
-  //   localStorage.removeItem('authToken');
-  //   setIsLoggedIn(false);
-  // }
+  const {isLoggedIn, setIsLoggedIn} = useInRouterContext();
 
   let title = 'An error occurred!';
   let message = 'Something went wrong!';
@@ -27,7 +20,7 @@ const ErrorPage = () => {
 
   return (
     <>
-      {/* <Header isloggedIn={isLoggedIn} onLogout={onLogout}/> */}
+      <Header isloggedIn={isLoggedIn} setLoggedIn={setIsLoggedIn}/>
       <ErrorInfo title={title}>
         <p>{message}</p>
       </ErrorInfo>
