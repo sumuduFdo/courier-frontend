@@ -11,8 +11,6 @@ export const LoginPage = () => {
 };
 
 export const loginActions: ActionFunction = async ({ request }) => {
-
-  console.log("executing actions");
   const data = await request.formData();
 
   const body = {
@@ -36,5 +34,5 @@ export const loginActions: ActionFunction = async ({ request }) => {
     isAdmin: resData.data.isAdmin
   }))
 
-  return redirect("/dashboard");
+  return redirect("/shipments");
 };
