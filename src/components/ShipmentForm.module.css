@@ -21,7 +21,7 @@
     width: fit-content;
     background-color: white;
     border-radius: 4px;
-    margin-top: 4rem;
+    margin-top: 1.2rem;
     margin-bottom: 2rem;
     align-items: center;
     justify-self: center;
@@ -32,6 +32,9 @@
     padding: 1rem 0 0 0;
     display: flex;
     justify-content: center;
+    position: absolute;
+    z-index: 10;
+    top: 0;
 }
 .alertcontent {
     font-size: 1rem;
@@ -43,6 +46,10 @@
     z-index: 10;
     margin-bottom: 0;
     border-radius: 5px;
+    min-width: 30rem;
+    text-align: center;
+    top: 12vh;
+    bottom: 0;
 }
 
 .detailstable {
