@@ -1,0 +1,68 @@
+.backdrop {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow: auto;
+    justify-items: center;
+    align-items: center;
+    display: grid;
+}
+
+.shipmentform {
+    display: flex;
+    position: relative;
+    width: fit-content;
+    background-color: white;
+    border-radius: 4px;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-self: center;
+}
+
+.alertwrapper{
+    width: 100%;
+    padding: 1rem 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+.alertcontent {
+    font-size: 1rem;
+    align-items: center;
+    width: fit-content;
+    padding: 1rem 2rem;
+    display: block;
+    box-sizing: content-box;
+    z-index: 10;
+    margin-bottom: 0;
+    border-radius: 5px;
+}
+
+.detailstable {
+    width: fit-content;
+    min-width: 35rem;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+
+.detailstable td {
+    padding: .5rem 1rem;
+    font-size: .90rem;
+    font-weight: 650;
+    text-align: left;
+    border-right: 2px solid black;
+}
+
+.contenttd{
+    font-weight: 450 !important;
+    border: none !important;
+    padding-left: 2.5rem !important;
+}
