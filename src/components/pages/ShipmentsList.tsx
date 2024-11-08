@@ -1,4 +1,5 @@
-import Dashboard from "../Dashboard";
+import { Dashboard } from "../Dashboard";
+
 
 export const ShipmentsListPage = () => {
   return <Dashboard />;
@@ -43,21 +44,4 @@ export const shipmentsLoader = async () => {
     };
   }
 
-  fetch("http://localhost:4500/shipments", { headers: headers })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      if (data.error !== null) {
-        throw new Error(data.error.message);
-      } else {
-        return { error: false, shipments: data.data };
-      }
-    })
-    .catch((err) => {
-      return {
-        error: true,
-        message: "Failed to fetch data. Please try again.",
-      };
-    });
 };
