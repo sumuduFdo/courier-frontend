@@ -4,12 +4,14 @@ import { ActionFunction } from "react-router-dom";
 import Login from "../Login";
 
 export const LoginPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   const setIsLoggedIn: Function = useOutletContext();
 
   return <Login onLogin={setIsLoggedIn}/>;
 };
 
-export const loginActions: ActionFunction = async ({ request, params }) => {
+export const loginActions: ActionFunction = async ({ request }) => {
+
   console.log("executing actions");
   const data = await request.formData();
 
@@ -28,8 +30,11 @@ export const loginActions: ActionFunction = async ({ request, params }) => {
   }
 
   const resData = await res.json();
-  localStorage.setItem("userId", resData.data.userId);
-  localStorage.setItem("authToken", resData.data.token);
+  localStorage.setItem('shipmentAuth', JSON.stringify({
+    userId: resData.data.userId,
+    authToken: resData.data.token,
+    isAdmin: resData.data.isAdmin
+  }))
 
   return redirect("/dashboard");
 };
