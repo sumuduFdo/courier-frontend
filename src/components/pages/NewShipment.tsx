@@ -1,5 +1,5 @@
 import { ActionFunction, useActionData } from "react-router-dom";
-import AddShipment from "../ShipmentForm";
+import ShipmentForm from "../ShipmentForm";
 import { useEffect, useState } from "react";
 
 export const NewShipmentPage = () => {
@@ -13,7 +13,7 @@ export const NewShipmentPage = () => {
   }, [actionData]);
 
   return (
-    <AddShipment
+    <ShipmentForm
       displayMessage={displayActionData}
       setDisplayMessage={setDisplayActionData}
       messageData={actionData}
@@ -62,7 +62,7 @@ export const actions: ActionFunction = async ({ request }) => {
     resData = {error: false, message: 'New shipment added successfully.'};
 
   } catch (err: any) {
-    console.error(err); 
+    console.error(err);
     resData = {
       error: true,
       message: err?.message
