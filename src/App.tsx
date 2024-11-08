@@ -7,7 +7,6 @@ import {
   RegisterPage,
   actions as registerAction,
 } from "./components/pages/Register";
-import ErrorPage from "./components/pages/Error";
 import {Dashboard, fetchShipmentHandler} from "./components/Dashboard";
 import Index from "./components/pages/Index";
 import {
@@ -20,12 +19,13 @@ import {
   actions as shipmentDetailAction
 } from "./components/pages/ShipmentDetail";
 import DashboardPage from "./components/pages/Dashboard";
+import { ShipmentsListPage, shipmentsLoader } from "./components/pages/ShipmentsList";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Index />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/login",
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         path: "/shipments",
         element: <DashboardPage />,
         children: [
-          { path: "", element: <Dashboard />, loader: fetchShipmentHandler },
+          { index: true,  element: <ShipmentsListPage />, loader: shipmentsLoader },
           {
             path: "create-shipment",
             element: <NewShipmentPage />,
