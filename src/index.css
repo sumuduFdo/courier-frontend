@@ -33,3 +33,7 @@ body {
   color: #ffffff;
   background-color: rgb(8, 8, 49);
 }
+
+.main {
+  padding-top: 1rem;
+}

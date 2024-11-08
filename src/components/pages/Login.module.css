@@ -1,0 +1,8 @@
+.erroralert {
+    width: fit-content;
+    min-width: 30rem;
+    text-align: center;
+    justify-self: center;
+    margin-bottom: 0;
+    display: block;
+}
