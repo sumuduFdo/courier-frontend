@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
 
-const Header = (props: { isloggedIn: boolean, onLogout: Function, }) => {
+const Header = (props: { isloggedIn: boolean, setLoggedIn: Function, }) => {
 
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    props.onLogout();
+    localStorage.removeItem('shipmentAuth');
+    props.setLoggedIn(false);
     navigate('/login')
   }
 
