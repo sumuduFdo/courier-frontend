@@ -1,15 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { logoutHandler } from "./util/lougoutHandler";
 import classes from "./Header.module.css";
 
-const Header = (props: { isloggedIn: boolean, setLoggedIn: Function, }) => {
+const Header = (props: { isloggedIn: boolean, setLoggedIn: (value: boolean) => void }) => {
 
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    localStorage.removeItem('shipmentAuth');
-    props.setLoggedIn(false);
-    navigate('/login')
-  }
 
   return (
     <header className={classes.header}>
@@ -19,7 +15,7 @@ const Header = (props: { isloggedIn: boolean, setLoggedIn: Function, }) => {
       </span>
 
       {props.isloggedIn && (
-        <button className={classes.button} onClick={logoutHandler}>
+        <button className={classes.button} onClick={() => {logoutHandler(props.setLoggedIn, navigate);}}>
             Logout
         </button>
       )}
