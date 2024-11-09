@@ -1,5 +1,4 @@
 .formwrapper {
-    border: 1px solid rgba(8, 8, 49, .8);
     padding: 1.8rem 2.4rem;
     width: fit-content;
     border-radius: 4px;
@@ -36,7 +35,7 @@ section {
     border-radius: 4px;
     background-color: white;
     height: 2rem;
-    margin-bottom: .8rem;
+    margin-bottom: .6rem;
     margin-top: 0;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -49,7 +48,7 @@ section {
 }
 
 .submitbtn {
-    margin-top: 1rem;
+    margin-top: 1.8rem;
     border: 1px solid rgba(8, 8, 49, .8);
     border-radius: 4px;
     background-color: #FFFF;
@@ -75,5 +74,10 @@ section {
 .form {
     width: fit-content;
     justify-self: center;
-    margin-top: 5rem;
+    margin-top: 1rem;
+}
+
+label {
+    font-size: .91rem;
+    color: rgba(0, 0, 0, .8)
 }

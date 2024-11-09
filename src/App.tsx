@@ -1,40 +1,76 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
-import RootLayout from "./components/pages/Root";
-import { LoginPage, actions as loginAction } from "./components/pages/Login";
-import { RegisterPage, actions as RegisterAction} from "./components/pages/Register";
-import DashboardPage from "./components/pages/Dashboard";
-import ErrorPage from "./components/pages/Error";
+import Index from "./components/Index";
+import { Login, loginActions } from "./components/Login";
+import { Register, actions as registerAction } from "./components/Register";
+import {
+  NewShipment,
+  actions as newShipmentAction,
+} from "./components/NewShipment";
+import {
+  ShipmentDetail,
+  loader as shipmentDetailLoader,
+  actions as shipmentDetailAction,
+} from "./components/ShipmentDetail";
+import DashboardPage from "./components/Dashboard";
+import { ShipmentList, shipmentsLoader } from "./components/ShipmentsList";
+import { loader as authLoader } from './components/util/authLoader';
+import ErrorPage from "./components/Error";
 
+/** Router configuration */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <Index />,
     errorElement: <ErrorPage />,
+    loader: authLoader,
     children: [
-      { index: true, element: <LoginPage /> },
       {
         path: "/login",
-        element: <LoginPage />,
-        action: loginAction,
+        element: <Login />,
+        action: loginActions,
       },
       {
         path: "/register",
-        element: <RegisterPage />,
-        action: RegisterAction,
-
+        element: <Register />,
+        action: registerAction,
       },
       {
-        path: "/dashboard",
+        path: "/shipments",
         element: <DashboardPage />,
-      },
+        children: [
+          {
+            index: true,
+            element: <ShipmentList />,
+            loader: shipmentsLoader,
+          },
+          {
+            path: "create-shipment",
+            element: <NewShipment />,
+            loader: () => {
+              return true;
+            },
+            action: newShipmentAction,
+          },
+          {
+            path: ":shipmentId",
+            element: <ShipmentDetail />,
+            loader: shipmentDetailLoader,
+            action: shipmentDetailAction,
+          },
+        ],
+      }
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

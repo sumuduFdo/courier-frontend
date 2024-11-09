@@ -24,6 +24,16 @@
     background-color: rgb(8, 8, 49);
 }
 
+.btnabsolute {
+    float: right;
+    justify-items: flex-end;
+    align-self: flex-end;
+    justify-self: flex-end;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+}
+
 .shipmenttable {
     width: 100%;
     margin-top: 2rem;
@@ -32,16 +42,16 @@
 
 .shipmenttable th {
     border: 1px solid;
-    border-color: rgb(8, 8, 49);
     background-color: rgb(8, 8, 49);
     color: #FFFFFF;
+    padding: .8rem .6rem;
 }
 
 .shipmenttable td {
     min-width: fit-content;
-    padding: .4rem .4rem;
+    padding: 1.4rem 1rem;
     border: 1px solid;
-    border-color: rgba(8, 8, 49, .2)
+    border-color: rgba(8, 8, 49, 0)
 }
 .message {
     justify-self: center;
@@ -51,12 +61,11 @@
     margin-top: 5rem;
 }
 
-.btnabsolute {
-    float: right;
-    justify-items: flex-end;
-    align-self: flex-end;
-    justify-self: flex-end;
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
+
+.updateStatusTd {
+    padding: 0 !important;
+}
+.btnUdpate{
+    background-color: red !important;
+    color: white;
 }
