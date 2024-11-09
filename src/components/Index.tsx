@@ -12,6 +12,7 @@ const Index = () => {
   useEffect(() => {
     const token = getToken();
     if (token) {
+      setIsLoggedIn(true);
       navigate("/shipments");
     } else {
       setIsLoggedIn(false);
@@ -25,10 +26,11 @@ const Index = () => {
       return;
     }
     const remainingDuration = getTokenDuration();
+    setIsLoggedIn(true);
     setTimeout(() => {
       logoutHandler(setIsLoggedIn, navigate);
     }, remainingDuration);
-  }, [navigate, token]);
+  }, [token]);
 
   return (
     <>
