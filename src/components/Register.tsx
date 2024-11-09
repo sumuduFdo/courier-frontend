@@ -52,7 +52,7 @@ export function Register() {
 
   function getCurrentDate() {
     const date = new Date();
-    const year: number = date.getFullYear();
+    const year: number = date.getFullYear() - 18;
     const month: number = date.getMonth() + 1;
     const day: number = date.getDate();
 
@@ -154,7 +154,7 @@ export function Register() {
             </div>
             <div className={forms.formgroup}>
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" id="password" required />
+              <input type="password" name="password" id="password" minLength={10} required />
             </div>
           </div>
           <div className={forms.formgroupsection}>
