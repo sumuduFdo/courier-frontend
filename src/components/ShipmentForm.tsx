@@ -1,13 +1,14 @@
-import forms from "./shared/FormStyles.module.css";
+import forms from "./FormStyles.module.css";
 import classes from "./ShipmentForm.module.css";
-import { Shipment } from "./shared/models/Shipment.model";
+import { Shipment } from "./util/Shipment.model";
 import { useNavigate, useLoaderData, Form } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const ShipmentForm = (props: {
-  displayMessage: boolean;
-  setDisplayMessage: (state: boolean) => void;
-  messageData: { error: boolean; message: string } | null;
+  displayMessage: boolean,
+  setDisplayMessage: (state: boolean) => void,
+  messageData: { error: boolean; message: string } | null,
+  formDisabled: boolean
 }) => {
   const [shipment, setShipment] = useState<Shipment | null>(null);
   const [shipmentStatus, setShipmentStatus] = useState("");
@@ -23,7 +24,6 @@ const ShipmentForm = (props: {
   } | null;
 
   useEffect(() => {
-    console.log("loader data received inside: ", shipment);
     if (loaderData?.data) {
       setShipment(loaderData.data);
       setShipmentStatus(loaderData.data.shipmentStatus);
@@ -33,7 +33,6 @@ const ShipmentForm = (props: {
   const navigate = useNavigate();
   useEffect(() => {
     if (props.displayMessage === true) {
-      console.log("props display message set to true");
       let timer = 3000;
       if (props.messageData?.error === true) {
         timer = 5000;
@@ -279,7 +278,7 @@ const ShipmentForm = (props: {
 
           <div className={forms.formgroupsection}>
             <div className={forms.formgroup}>
-              <button type="submit" className={`btn-custom`}>
+              <button type="submit" className={`btn-custom`} disabled={props.formDisabled}>
                 {shipment === null ? "Create Shipment" : "Update Status"}
               </button>
             </div>
@@ -287,6 +286,7 @@ const ShipmentForm = (props: {
               <button
                 type="reset"
                 className={`btn-custom`}
+                disabled={props.formDisabled}
                 onClick={() => {
                   navigate("/shipments");
                 }}
