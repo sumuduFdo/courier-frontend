@@ -1,50 +1,53 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
-import { LoginPage, loginActions } from "./components/pages/Login";
-
+import Index from "./components/Index";
+import { Login, loginActions } from "./components/Login";
+import { Register, actions as registerAction } from "./components/Register";
 import {
-  RegisterPage,
-  actions as registerAction,
-} from "./components/pages/Register";
-import {Dashboard, fetchShipmentHandler} from "./components/Dashboard";
-import Index from "./components/pages/Index";
-import {
-  NewShipmentPage,
+  NewShipment,
   actions as newShipmentAction,
-} from "./components/pages/NewShipment";
+} from "./components/NewShipment";
 import {
   ShipmentDetail,
   loader as shipmentDetailLoader,
-  actions as shipmentDetailAction
-} from "./components/pages/ShipmentDetail";
-import DashboardPage from "./components/pages/Dashboard";
-import { ShipmentsListPage, shipmentsLoader } from "./components/pages/ShipmentsList";
+  actions as shipmentDetailAction,
+} from "./components/ShipmentDetail";
+import DashboardPage from "./components/Dashboard";
+import { ShipmentList, shipmentsLoader } from "./components/ShipmentsList";
+import { loader as authLoader } from './components/util/authLoader';
+import ErrorPage from "./components/Error";
 
+/** Router configuration */
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Index />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
+    loader: authLoader,
     children: [
       {
         path: "/login",
-        element: <LoginPage />,
+        element: <Login />,
         action: loginActions,
       },
       {
         path: "/register",
-        element: <RegisterPage />,
+        element: <Register />,
         action: registerAction,
       },
       {
         path: "/shipments",
         element: <DashboardPage />,
         children: [
-          { index: true,  element: <ShipmentsListPage />, loader: shipmentsLoader },
+          {
+            index: true,
+            element: <ShipmentList />,
+            loader: shipmentsLoader,
+          },
           {
             path: "create-shipment",
-            element: <NewShipmentPage />,
+            element: <NewShipment />,
             loader: () => {
               return true;
             },
@@ -54,10 +57,10 @@ const router = createBrowserRouter([
             path: ":shipmentId",
             element: <ShipmentDetail />,
             loader: shipmentDetailLoader,
-            action: shipmentDetailAction
+            action: shipmentDetailAction,
           },
         ],
-      },
+      }
     ],
   },
 ]);
